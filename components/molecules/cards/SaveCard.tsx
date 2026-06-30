@@ -23,7 +23,7 @@ const SaveCard = ({ rank, logoUrl, brandName, savedAmount, usageCount, category,
           {rank}
         </div>
         
-        <div className="w-full h-10 relative mb-3">
+        <div className="w-full h-16 relative mb-3">
           <Image 
             src={logoUrl} 
             alt={brandName} 

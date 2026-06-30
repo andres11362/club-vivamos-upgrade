@@ -13,9 +13,13 @@ export interface ClienteInfo {
 }
 
 export interface UtilizacionAliado {
-  readonly aliadoName: string;
+  readonly aliado: string;
+  readonly aliadoName?: string;
   readonly ahorro: number;
   readonly cantidadUtilizaciones: number;
+  readonly categoriaId?: number;
+  readonly categoria?: string;
+  readonly imagen?: string;
 }
 
 export interface CategoriaPorcentaje {

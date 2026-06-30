@@ -53,9 +53,10 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             className
           )}
           ref={ref}
+          defaultValue=""
           {...props}
         >
-          <option value="" disabled selected hidden>Elige el tipo de Documento</option>
+          <option value="" disabled hidden>Elige el tipo de Documento</option>
           {options.map((opt) => (
             <option key={opt.value} value={opt.value}>{opt.label}</option>
           ))}

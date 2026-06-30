@@ -132,13 +132,16 @@ const Footer = () => {
               </p>
               <div className="mt-2 flex items-center gap-6">
                 <a href={SOCIAL.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="transition hover:opacity-70">
-                  <Facebook className="h-7 w-7" fill="currentColor" stroke="none" />
+                  {/* <Facebook className="h-7 w-7" fill="currentColor" stroke="none" /> */}
+                  Facebook
                 </a>
                 <a href={SOCIAL.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="transition hover:opacity-70">
-                  <Instagram className="h-7 w-7" />
+                  {/* <Instagram className="h-7 w-7" /> */}
+                  Instagram
                 </a>
                 <a href={SOCIAL.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="transition hover:opacity-70">
-                  <Youtube className="h-8 w-8" fill="currentColor" stroke="none" />
+                  {/* <Youtube className="h-8 w-8" fill="currentColor" stroke="none" /> */}
+                  Youtube
                 </a>
               </div>
             </div>
@@ -174,39 +177,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-
       {/* ---- Descarga la app (desktop, oculto < 720px como en legacy) ---- */}
-      <div className="hidden h-[138px] flex-col items-center justify-center min-[720px]:flex">
-        <p className="mb-4 font-maven text-[14px] text-white">Descarga nuestra app</p>
-        <div className="flex items-center gap-4">
-          <a
-            href={APP.googlePlay}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Disponible en Google Play"
-            className="inline-block bg-no-repeat"
-            style={{
-              backgroundImage: "url(/images/sprites-header-footer.svg)",
-              backgroundPosition: "-342px -264px",
-              width: 136,
-              height: 42,
-            }}
-          />
-          <a
-            href={APP.appStore}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Descargar en el App Store"
-            className="inline-block bg-no-repeat"
-            style={{
-              backgroundImage: "url(/images/sprites-header-footer.svg)",
-              backgroundPosition: "-494px -265px",
-              width: 123,
-              height: 42,
-            }}
-          />
-        </div>
-      </div>
     </footer>
   );
 };

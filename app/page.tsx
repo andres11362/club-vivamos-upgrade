@@ -5,7 +5,10 @@ import { getFeaturedBySegment, getCustomBlocks } from "@/services/homeService";
 export default async function Home() {
   const cookieStore = await cookies();
   const prefix = process.env.COOKIE_PREFIX ?? "";
-  const authCookie = cookieStore.get(`${prefix}auth`);
+  let authCookie = cookieStore.get(`${prefix}auth`);
+  if (!authCookie && prefix !== "") {
+    authCookie = cookieStore.get("auth");
+  }
 
   let segmentId = 2; // Default segment (Classics)
   if (authCookie) {

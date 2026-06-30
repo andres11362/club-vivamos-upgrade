@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable array-callback-return */
 /* eslint-disable prefer-const */
+/* eslint-disable @typescript-eslint/no-require-imports */
 
 module.exports = {
     execute: function () {

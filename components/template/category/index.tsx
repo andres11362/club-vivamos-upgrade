@@ -1,12 +1,14 @@
 "use client";
 
-import React, { useState } from 'react';
+import React from 'react';
 import Carousel from '@/components/molecules/carousel';
 import CategoryCard from '@/components/molecules/cards/CategoryCard';
 import Breadcrumb from '@/components/molecules/breadcrumb';
 import { useBenefits } from '@/context/BenefitsContext';
 import { getCategory } from '@/utils/JSONObjects';
 import Link from 'next/link';
+
+import { useSearchParams } from 'next/navigation';
 
 interface CategoryTemplateProps {
   readonly category: string;
@@ -27,6 +29,9 @@ const getAbsoluteUrl = (path: string | undefined) => {
 const CategoryTemplate: React.FC<CategoryTemplateProps> = ({ category }) => {
   const { state, getSearchResult, getFeatured, clearSearchResult, clearFeatured } = useBenefits();
   const { searchResult, totalCount, loading } = state;
+  
+  const searchParams = useSearchParams();
+  const keyword = searchParams.get('keyword') || undefined;
 
   const categoryMeta = getCategory(category);
   const categoryTitle = categoryMeta ? categoryMeta.title : 'Beneficios';
@@ -35,14 +40,14 @@ const CategoryTemplate: React.FC<CategoryTemplateProps> = ({ category }) => {
   React.useEffect(() => {
     clearSearchResult();
     clearFeatured();
-    getSearchResult({ category, from: 0, size: 8 });
+    getSearchResult({ category, keyword, from: 0, size: 8 });
     getFeatured({ category });
-  }, [category, getSearchResult, getFeatured, clearSearchResult, clearFeatured]);
+  }, [category, keyword, getSearchResult, getFeatured, clearSearchResult, clearFeatured]);
 
   // Load more pagination
   const handleLoadMore = () => {
     if (loading) return;
-    getSearchResult({ category, from: searchResult.length, size: 8 }, true);
+    getSearchResult({ category, keyword, from: searchResult.length, size: 8 }, true);
   };
 
   return (
@@ -82,10 +87,10 @@ const CategoryTemplate: React.FC<CategoryTemplateProps> = ({ category }) => {
         <section className="max-w-7xl mx-auto px-4 pb-16">
           {searchResult.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
-              {searchResult.map((item) => {
+              {searchResult.map((item, index) => {
                 const imageSrc = getAbsoluteUrl(item.imageBenefit?.medium || item.imageBenefit?.original);
                 const logoSrc = getAbsoluteUrl(item.imageLogo?.medium || item.imageLogo?.original);
-                const itemKey = item.benefitId || item.id || `benefit-${Math.random()}`;
+                const itemKey = item.benefitId || item.id || `benefit-${index}`;
                 
                 // Construct URL variables safely
                 const titleseo = item.titleseo || 'detalle';

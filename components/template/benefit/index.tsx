@@ -41,7 +41,7 @@ const BeneficioDetailTemplate: React.FC<BeneficioDetailTemplateProps> = ({ benef
 
   const categoryInfo = CATEGORIES.find(c => c.id === benefit.categoryId);
   const categoryTitle = categoryInfo ? categoryInfo.title : 'Beneficios';
-  const CategoryIcon = getCategoryIcon(benefit.categoryId);
+  const categoryIcon = getCategoryIcon(benefit.categoryId);
 
   const segmentLabel = benefit.segmentId === 3 
     ? "SOCIOS PREFERENTES" 
@@ -102,7 +102,7 @@ const BeneficioDetailTemplate: React.FC<BeneficioDetailTemplateProps> = ({ benef
                 )}
                 {/* Icono de Categoría flotante */}
                 <div className="absolute top-0 right-8 bg-[#6f2c91] p-3 rounded-b-xl shadow-md">
-                  <CategoryIcon className="w-6 h-6 text-white" />
+                  {React.createElement(categoryIcon, { className: "w-6 h-6 text-white" })}
                 </div>
               </div>
             </div>
@@ -131,7 +131,7 @@ const BeneficioDetailTemplate: React.FC<BeneficioDetailTemplateProps> = ({ benef
               {/* Tags de Categoría y Aplicación */}
               <div className="flex flex-col md:flex-row gap-4 md:gap-10 mb-8">
                 <div className="flex items-center gap-2 text-sm text-gray-700 font-semibold">
-                  <CategoryIcon className="w-5 h-5 text-gray-500" /> {categoryTitle}
+                  {React.createElement(categoryIcon, { className: "w-5 h-5 text-gray-500" })} {categoryTitle}
                 </div>
                 <div className="flex flex-col text-xs font-semibold">
                   <span className="text-gray-400">APLICA PARA SOCIOS:</span>

@@ -7,6 +7,8 @@ execute();
 const nextConfig: NextConfig = {
   /* config options here */
   env: {
+    COOKIE_PREFIX: process.env.COOKIE_PREFIX,
+    COOKIES: process.env.COOKIES,
     BASE_URL: process.env.BASE_URL,
     EMPTOR: process.env.EMPTOR,
     BACO: process.env.BACO,

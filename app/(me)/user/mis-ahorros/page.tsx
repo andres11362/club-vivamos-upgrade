@@ -8,7 +8,10 @@ import { SavingsProviders } from '@/providers/savings';
 export default async function MySavingsPage() {
   const cookieStore = await cookies();
   const prefix = process.env.COOKIE_PREFIX ?? "";
-  const authCookie = cookieStore.get(`${prefix}auth`);
+  let authCookie = cookieStore.get(`${prefix}auth`);
+  if (!authCookie && prefix !== "") {
+    authCookie = cookieStore.get("auth");
+  }
 
   let user = null;
   if (authCookie) {

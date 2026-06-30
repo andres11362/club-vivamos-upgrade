@@ -1,35 +1,72 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import SaveCard from '@/components/molecules/cards/SaveCard';
-import { Share2, ChevronDown, HeartPulse, ShoppingBag, Home, Tent, Utensils, Plane, PiggyBank } from 'lucide-react';
+import { Share2, HeartPulse, ShoppingBag, Home, Utensils, Plane, PiggyBank } from 'lucide-react';
 import { useSavings } from '@/context/SavingsContext';
 import { useAuth } from '@/context/AuthContext';
 import { CATEGORIES } from '@/utils/JSONObjects';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
 // Helper to map category ID to colors and icons
 const getCategoryStyle = (categoryId: number) => {
   switch (categoryId) {
     case 1: // Hogar y Servicios
-      return { color: "bg-purple-400", textColor: "text-purple-400", icon: Home };
+      return { color: "bg-purple-400", hex: "#c084fc", textColor: "text-purple-400", icon: Home };
     case 2: // Entretenimiento
-      return { color: "bg-pink-500", textColor: "text-pink-500", icon: ShoppingBag };
+      return { color: "bg-pink-500", hex: "#ec4899", textColor: "text-pink-500", icon: ShoppingBag };
     case 3: // Gastronomía
-      return { color: "bg-orange-500", textColor: "text-orange-500", icon: Utensils };
+      return { color: "bg-orange-500", hex: "#f97316", textColor: "text-orange-500", icon: Utensils };
     case 4: // Salud y Bienestar
-      return { color: "bg-teal-400", textColor: "text-teal-400", icon: HeartPulse };
+      return { color: "bg-teal-400", hex: "#2dd4bf", textColor: "text-teal-400", icon: HeartPulse };
     case 5: // Turismo
-      return { color: "bg-blue-500", textColor: "text-blue-500", icon: Plane };
+      return { color: "bg-blue-500", hex: "#3b82f6", textColor: "text-blue-500", icon: Plane };
     case 6: // Ropa y Accesorios
-      return { color: "bg-green-500", textColor: "text-green-500", icon: ShoppingBag };
+      return { color: "bg-green-500", hex: "#22c55e", textColor: "text-green-500", icon: ShoppingBag };
     default:
-      return { color: "bg-gray-400", textColor: "text-gray-400", icon: PiggyBank };
+      return { color: "bg-gray-400", hex: "#9ca3af", textColor: "text-gray-400", icon: PiggyBank };
   }
+};
+
+const RADIAN = Math.PI / 180;
+
+interface CustomizedLabelProps {
+  cx?: number;
+  cy?: number;
+  midAngle?: number;
+  innerRadius?: number;
+  outerRadius?: number;
+  value?: number;
+}
+
+const renderCustomizedLabel = ({ cx = 0, cy = 0, midAngle = 0, innerRadius = 0, outerRadius = 0, value = 0 }: CustomizedLabelProps) => {
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+  return (
+    <text 
+      x={x} 
+      y={y} 
+      fill="#ffffff" 
+      textAnchor="middle" 
+      dominantBaseline="central"
+      className="text-xs font-bold"
+    >
+      {`${value}%`}
+    </text>
+  );
 };
 
 const MySavingsTemplate = () => {
   const { data, loading, updateRange, currentMonths } = useSavings();
   const { state: authState } = useAuth();
+  
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Determine user name
   const userName = authState.user
@@ -40,6 +77,14 @@ const MySavingsTemplate = () => {
 
   const totalSaved = data.cliente?.ahorroTotal ?? 0;
   const formattedTotal = `$ ${totalSaved.toLocaleString('es-CO')}`;
+
+  const chartData = (data.categoriasPorcentaje || [])
+    .filter((item) => item.porcentaje > 0)
+    .map((item) => ({
+      name: CATEGORIES.find((c) => c.id === item.categoriaId)?.title || `Categoría ${item.categoriaId}`,
+      value: item.porcentaje,
+      fill: getCategoryStyle(item.categoriaId).hex,
+    }));
 
   const handleShare = () => {
     if (navigator.share) {
@@ -116,21 +161,38 @@ const MySavingsTemplate = () => {
           <div className="flex overflow-x-auto pb-4 gap-4 md:gap-6 hide-scrollbar">
             {data.utilizacionesPorAliados && data.utilizacionesPorAliados.length > 0 ? (
               data.utilizacionesPorAliados.map((item, index) => {
-                // Simple logo mapping
-                const cleanName = item.aliadoName.toLowerCase().replace(/[^a-z0-9]/g, '');
-                const logoUrl = `/logos/${cleanName}.png`;
+                const aliadoName = item.aliado || item.aliadoName || 'Aliado';
+                
+                // Construct dynamic logo URL using BASE_IMG_DOMAIN from config
+                const bacoSavings = process.env.BACO_SAVINGS ? JSON.parse(process.env.BACO_SAVINGS) : null;
+                const baseImgDomain = bacoSavings?.BASE_IMG_DOMAIN || '';
+                const logoUrl = item.imagen
+                  ? (item.imagen.startsWith('http') ? item.imagen : `${baseImgDomain}${item.imagen}`)
+                  : '/images/savings/image-default.jpg';
+                
+                // Construct category styling
+                const catStyle = item.categoriaId ? getCategoryStyle(item.categoriaId) : null;
+                const categoryColor = catStyle ? catStyle.color : 'bg-teal-400';
+                const category = item.categoria || 'Aliado';
+                
+                const searchUrl = `/buscar?keyword=${encodeURIComponent(aliadoName)}`;
                 
                 return (
-                  <SaveCard 
-                    key={item.aliadoName}
-                    rank={index + 1}
-                    logoUrl={logoUrl}
-                    brandName={item.aliadoName}
-                    savedAmount={`$ ${item.ahorro.toLocaleString('es-CO')}`}
-                    usageCount={item.cantidadUtilizaciones}
-                    category="Aliado"
-                    categoryColor="bg-teal-400"
-                  />
+                  <Link 
+                    key={`${aliadoName}-${index}`} 
+                    href={searchUrl}
+                    className="hover:scale-[1.02] transition-transform duration-200 block"
+                  >
+                    <SaveCard 
+                      rank={index + 1}
+                      logoUrl={logoUrl}
+                      brandName={aliadoName}
+                      savedAmount={`$ ${(item.ahorro || 0).toLocaleString('es-CO')}`}
+                      usageCount={item.cantidadUtilizaciones || 0}
+                      category={category}
+                      categoryColor={categoryColor}
+                    />
+                  </Link>
                 );
               })
             ) : (
@@ -151,39 +213,75 @@ const MySavingsTemplate = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             
             {/* Lado Izquierdo: Gráfico circular o indicador total */}
-            <div className="flex flex-col items-center justify-center relative bg-white border border-gray-100 rounded-2xl p-8 shadow-sm h-64">
-              <PiggyBank className="w-16 h-16 text-orange-400 mb-4 stroke-1" />
-              <span className="text-sm font-semibold text-gray-500">Total acumulado en el periodo</span>
-              <span className="text-2xl font-bold text-[#03091e] mt-1">{formattedTotal}</span>
+            <div className="flex flex-col items-center justify-center relative bg-white border border-gray-100 rounded-2xl p-4 shadow-sm h-80 select-none">
+              {mounted && chartData.length > 0 ? (
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={chartData}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={50}
+                      outerRadius={105}
+                      paddingAngle={3}
+                      dataKey="value"
+                      label={renderCustomizedLabel}
+                      labelLine={false}
+                    >
+                      {chartData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.fill} />
+                      ))}
+                    </Pie>
+                    <Tooltip formatter={(value) => `${value}%`} />
+                  </PieChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="flex flex-col items-center justify-center h-full text-center">
+                  <PiggyBank className="w-16 h-16 text-orange-400 mb-4 stroke-1" />
+                  <span className="text-sm font-semibold text-gray-500">Total acumulado en el periodo</span>
+                  <span className="text-2xl font-bold text-[#03091e] mt-1">{formattedTotal}</span>
+                </div>
+              )}
             </div>
 
             {/* Lado Derecho: Tabla de Categorías (Leyenda) */}
             <div className="border border-gray-200 rounded-lg overflow-hidden bg-white shadow-sm">
-              {data.categoriasPorcentaje && data.categoriasPorcentaje.length > 0 ? (
-                data.categoriasPorcentaje.map((item) => {
-                  const cat = CATEGORIES.find((c) => c.id === item.categoriaId);
-                  const title = cat ? cat.title : `Categoría ${item.categoriaId}`;
-                  const style = getCategoryStyle(item.categoriaId);
+              {(() => {
+                const sortedCategories = CATEGORIES.map((cat) => {
+                  const dataItem = data.categoriasPorcentaje?.find((item) => item.categoriaId === cat.id);
+                  return {
+                    cat,
+                    porcentaje: dataItem ? (dataItem.porcentaje || 0) : 0,
+                  };
+                }).sort((a, b) => b.porcentaje - a.porcentaje);
+
+                return sortedCategories.map(({ cat, porcentaje }) => {
+                  const style = getCategoryStyle(cat.id);
                   const Icon = style.icon;
 
                   return (
-                    <div key={item.categoriaId} className="flex border-b border-gray-100 last:border-b-0">
+                    <div key={cat.id} className="flex border-b border-gray-100 last:border-b-0">
                       <div className="w-2/3 flex items-center gap-3 px-4 py-3 bg-gray-50/50">
                         <div className={`w-1.5 h-10 ${style.color} rounded-full`}></div>
                         <Icon className={`w-5 h-5 ${style.textColor}`} />
-                        <span className="text-sm font-bold text-gray-700">{title}</span>
+                        <span className="text-sm font-bold text-gray-700">{cat.title}</span>
                       </div>
-                      <div className="w-1/3 flex items-center justify-center bg-white font-bold text-[#03091e]">
-                        {item.porcentaje}%
+                      <div className="w-1/3 flex items-center justify-center bg-white font-bold">
+                        {porcentaje > 0 ? (
+                          <span className="text-[#03091e] text-sm">{porcentaje}%</span>
+                        ) : (
+                          <Link 
+                            href={`/${cat.route}`} 
+                            className="text-xs text-red-600 hover:text-red-700 hover:underline transition font-bold"
+                          >
+                            Conoce más
+                          </Link>
+                        )}
                       </div>
                     </div>
                   );
-                })
-              ) : (
-                <div className="text-center py-10 bg-white p-6">
-                  <p className="text-gray-400 text-xs font-semibold">Sin distribución de categorías en este periodo.</p>
-                </div>
-              )}
+                });
+              })()}
             </div>
 
           </div>

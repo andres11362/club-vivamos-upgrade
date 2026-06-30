@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import CategoryTemplate from '@/components/template/category';
 import { BenefitsProvider } from '@/context/BenefitsContext';
@@ -28,7 +28,15 @@ export default async function CategoryPage({ params }: PageProps) {
 
   return (
     <BenefitsProvider>
-      <CategoryTemplate category={category} />
+      <Suspense fallback={
+        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+          <div className="bg-[#0f092d] text-white px-5 py-2.5 rounded-full shadow-lg text-xs font-semibold animate-pulse">
+            Cargando...
+          </div>
+        </div>
+      }>
+        <CategoryTemplate category={category} />
+      </Suspense>
     </BenefitsProvider>
   );
 }
