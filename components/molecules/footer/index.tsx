@@ -130,19 +130,32 @@ const Footer = () => {
               <p className="font-maven text-[16px] leading-6 text-white">
                 Síguenos en nuestras redes sociales
               </p>
+              {/* Íconos del sprite real de producción (sprite-header2.svg) */}
               <div className="mt-2 flex items-center gap-6">
-                <a href={SOCIAL.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="transition hover:opacity-70">
-                  {/* <Facebook className="h-7 w-7" fill="currentColor" stroke="none" /> */}
-                  Facebook
-                </a>
-                <a href={SOCIAL.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="transition hover:opacity-70">
-                  {/* <Instagram className="h-7 w-7" /> */}
-                  Instagram
-                </a>
-                <a href={SOCIAL.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="transition hover:opacity-70">
-                  {/* <Youtube className="h-8 w-8" fill="currentColor" stroke="none" /> */}
-                  Youtube
-                </a>
+                <a
+                  href={SOCIAL.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook"
+                  className="inline-block bg-no-repeat transition hover:opacity-70"
+                  style={{ backgroundImage: "url(/images/sprite-header2.svg)", backgroundPosition: "-3px -269px", width: 32, height: 32 }}
+                />
+                <a
+                  href={SOCIAL.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  className="inline-block bg-no-repeat transition hover:opacity-70"
+                  style={{ backgroundImage: "url(/images/sprite-header2.svg)", backgroundPosition: "-114px -269px", width: 32, height: 32 }}
+                />
+                <a
+                  href={SOCIAL.youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="YouTube"
+                  className="inline-block bg-no-repeat transition hover:opacity-70"
+                  style={{ backgroundImage: "url(/images/sprite-header2.svg)", backgroundPosition: "-162px -266px", width: 47, height: 35 }}
+                />
               </div>
             </div>
           </div>
@@ -178,6 +191,37 @@ const Footer = () => {
         </div>
       </div>
       {/* ---- Descarga la app (desktop, oculto < 720px como en legacy) ---- */}
+      <div className="hidden h-[138px] flex-col items-center justify-center min-[720px]:flex">
+        <p className="mb-4 font-maven text-[14px] text-white">Descarga nuestra app</p>
+        <div className="flex items-center gap-4">
+          <a
+            href={APP.googlePlay}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Disponible en Google Play"
+            className="inline-block bg-no-repeat"
+            style={{
+              backgroundImage: "url(/images/sprites-header-footer.svg)",
+              backgroundPosition: "-342px -264px",
+              width: 136,
+              height: 42,
+            }}
+          />
+          <a
+            href={APP.appStore}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Descargar en el App Store"
+            className="inline-block bg-no-repeat"
+            style={{
+              backgroundImage: "url(/images/sprites-header-footer.svg)",
+              backgroundPosition: "-494px -265px",
+              width: 123,
+              height: 42,
+            }}
+          />
+        </div>
+      </div>
     </footer>
   );
 };

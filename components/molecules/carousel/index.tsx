@@ -115,7 +115,7 @@ const Carousel: React.FC<CarouselProps> = ({
   };
 
   return (
-    <div className="relative w-full h-[450px] md:h-[450px] lg:h-[450px] bg-[#03091e] overflow-hidden font-barlow">
+    <div className="relative w-full h-[430px] bg-ink overflow-hidden font-barlow">
       
       {/* =========================================
           Pista del Carrusel (Track)
@@ -129,9 +129,14 @@ const Carousel: React.FC<CarouselProps> = ({
       >
         {activeSlides.map((slide, index) => {
           const categoryRoute = slide.categoryId ? getCategory(slide.categoryId).route : "beneficios";
-          const detailUrl = slide.externalLink 
-            ? slide.externalLink 
+          const detailUrl = slide.externalLink
+            ? slide.externalLink
             : `/${categoryRoute}/${slide.titleseo || "detalle"}/${slide.id}`;
+
+          // Color de acento por segmento (azul clásico / amarillo preferente)
+          const isPref = getUserType(slide.segmentId ?? "") === "preferente";
+          const discountColor = isPref ? "text-secondary" : "text-accent";
+          const barColor = isPref ? "border-secondary" : "border-accent";
 
           const handleSlideClick = () => {
             const segmentLabel = slide.segmentId ? getUserType(slide.segmentId) : "clasico";
@@ -197,38 +202,37 @@ const Carousel: React.FC<CarouselProps> = ({
                 </div>
               )}
               
-              {/* Overlay Oscuro / Gradiente (Crucial para leer el texto) */}
-              <div className="absolute inset-0 bg-black/40 md:bg-transparent md:bg-gradient-to-r md:from-[#03091e]/90 md:to-transparent md:w-2/3 lg:w-1/2 z-10 pointer-events-none"></div>
+              {/* Overlay: oscurece ambos bordes (gradiente simétrico como producción) */}
+              <div className="absolute inset-0 z-10 bg-black/40 pointer-events-none md:bg-gradient-to-r md:from-ink/90 md:via-transparent md:to-ink/90"></div>
 
-              {/* Contenido de la Diapositiva */}
-              <div className="relative z-10 max-w-7xl mx-auto px-12 md:px-20 h-full flex flex-col justify-center items-center md:items-start text-center md:text-left text-white pb-16 pointer-events-none">
-                
-                <div className="flex flex-col md:flex-row items-center md:items-end gap-4 mb-4">
-                   {slide.logo && (
-                     <div className="w-24 md:w-32 bg-white p-2 rounded-lg shadow-md h-16 relative">
-                       <Image 
-                         src={slide.logo} 
-                         alt="Logo Aliado" 
-                         fill
-                         className="object-contain p-2"
-                         sizes="(max-width: 768px) 96px, 128px"
-                       />
-                     </div>
-                   )}
-                   <div>
-                      <h2 className="text-3xl md:text-5xl font-bold font-barlow-condensed uppercase drop-shadow-md">
-                        {slide.title}
-                      </h2>
-                   </div>
+              {/* Contenido (alineado a la derecha con barra de acento, como producción) */}
+              <div className="pointer-events-none relative z-10 mx-auto flex h-full max-w-[1200px] flex-col justify-center px-12 pb-16 text-center text-white md:items-end md:text-right">
+                <div className={`max-w-md md:border-l-4 md:pl-5 ${barColor}`}>
+                  {/* Logo del aliado */}
+                  {slide.logo && (
+                    <div className="relative mx-auto mb-3 h-[70px] w-[70px] md:ml-auto md:mr-0 md:h-[100px] md:w-[100px]">
+                      <Image
+                        src={slide.logo}
+                        alt="Logo Aliado"
+                        fill
+                        className="rounded-br-[30px] object-contain"
+                        sizes="100px"
+                      />
+                    </div>
+                  )}
+                  {/* Nombre del aliado — BarlowCondensed-SemiBold 26px */}
+                  <h2 className="font-barlow text-[22px] font-semibold uppercase leading-[30px] [text-shadow:2px_1px_var(--color-ink)] md:text-[26px]">
+                    {slide.title}
+                  </h2>
+                  {/* Descuento — 45px, color por segmento */}
+                  <h3 className={`mt-1 font-barlow text-[28px] font-semibold uppercase leading-tight md:text-[45px] ${discountColor}`}>
+                    {slide.subtitle}
+                  </h3>
+                  {/* Legal */}
+                  <p className="mt-3 font-barlow text-[12px] leading-4 text-white/80">
+                    {slide.legal}
+                  </p>
                 </div>
-                
-                <h3 className="text-lg md:text-2xl text-cyan-300 font-semibold mb-6 max-w-2xl drop-shadow">
-                  {slide.subtitle}
-                </h3>
-                
-                <p className="text-[10px] md:text-xs text-gray-300 max-w-xl opacity-80">
-                  {slide.legal}
-                </p>
               </div>
               
             </div>
