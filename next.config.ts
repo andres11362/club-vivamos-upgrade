@@ -21,6 +21,7 @@ const nextConfig: NextConfig = {
     ELASTIC_DATA: process.env.ELASTIC_DATA,
     ELASTIC_INDEX: process.env.ELASTIC_INDEX,
     MAIL_VALUES: process.env.MAIL_VALUES,
+    GOOGLE: process.env.GOOGLE,
   },
   images: {
     remotePatterns: [

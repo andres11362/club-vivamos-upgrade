@@ -5,6 +5,19 @@ import { Home, Calendar, ShoppingBag, MapPin, Share2, Globe, HeartPulse, Tent, U
 import Breadcrumb from '@/components/molecules/breadcrumb';
 import { Benefit, HeadquartersState } from '@/context/BenefitsContext';
 import { CATEGORIES } from '@/utils/JSONObjects';
+import dynamic from 'next/dynamic';
+
+const BenefitMap = dynamic(
+  () => import('@/components/molecules/maps/BenefitMap'),
+  { 
+    ssr: false, 
+    loading: () => (
+      <div className="h-full flex items-center justify-center bg-gray-50 text-gray-400 font-semibold rounded-3xl animate-pulse">
+        Cargando Mapa...
+      </div>
+    ) 
+  }
+);
 
 interface BeneficioDetailTemplateProps {
   readonly benefit: Benefit;
@@ -36,6 +49,10 @@ const getCategoryIcon = (categoryId: number | undefined) => {
 };
 
 const BeneficioDetailTemplate: React.FC<BeneficioDetailTemplateProps> = ({ benefit, headquarters }) => {
+  const keys = Object.keys(headquarters);
+  const [activeCity, setActiveCity] = React.useState<string>(keys[0] || '');
+  const [selectedCoordinates, setSelectedCoordinates] = React.useState<{ lat: number; lng: number } | null>(null);
+
   const imageBenefitUrl = getAbsoluteUrl(benefit.imageBenefit?.original || benefit.imageBenefit?.medium);
   const imageLogoUrl = getAbsoluteUrl(benefit.imageLogo?.original || benefit.imageLogo?.medium);
 
@@ -265,15 +282,31 @@ const BeneficioDetailTemplate: React.FC<BeneficioDetailTemplateProps> = ({ benef
                             {cityHead.info.length} sedes
                           </span>
                         </div>
-                        <ul className="text-xs text-gray-500 space-y-2.5 pl-4 list-disc">
-                          {cityHead.info.map((branch: any) => (
-                            <li key={branch.id} className="leading-tight">
-                              <span className="font-semibold text-gray-700 block">{branch.address || 'Sede'}</span>
-                              {branch.phone && (
-                                <span className="text-[10px] text-gray-400 block mt-0.5">Tel: {branch.phone}</span>
-                              )}
-                            </li>
-                          ))}
+                        <ul className="text-xs text-gray-500 space-y-2 pl-1">
+                          {cityHead.info.map((branch: any) => {
+                            const lat = Number(branch.latitude);
+                            const lng = Number(branch.longitude);
+                            const isSelected = selectedCoordinates?.lat === lat && selectedCoordinates?.lng === lng;
+                            return (
+                              <li 
+                                key={branch.id} 
+                                className={`leading-tight cursor-pointer p-2 rounded-xl transition-all duration-200 border ${isSelected ? 'bg-red-50/70 border-red-200 shadow-sm' : 'border-transparent hover:bg-gray-100'}`}
+                                onClick={() => {
+                                  if (!isNaN(lat) && !isNaN(lng)) {
+                                    setActiveCity(key);
+                                    setSelectedCoordinates({ lat, lng });
+                                  }
+                                }}
+                              >
+                                <span className={`font-semibold block ${isSelected ? 'text-red-700 font-bold' : 'text-gray-700'}`}>
+                                  {branch.address || 'Sede'}
+                                </span>
+                                {branch.phone && (
+                                  <span className="text-[10px] text-gray-400 block mt-0.5">Tel: {branch.phone}</span>
+                                )}
+                              </li>
+                            );
+                          })}
                         </ul>
                       </div>
                     );
@@ -281,14 +314,12 @@ const BeneficioDetailTemplate: React.FC<BeneficioDetailTemplateProps> = ({ benef
                 </div>
 
                 {/* Contenedor del Mapa (Desktop: Derecha) */}
-                <div className="lg:col-span-7 w-full h-[300px] lg:h-[450px] bg-[#2c2b5e]/5 rounded-3xl overflow-hidden relative shadow-inner border border-gray-100 flex flex-col items-center justify-center p-6 text-center">
-                  <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md mb-3 text-red-500">
-                    <MapPin className="w-8 h-8 stroke-1 animate-bounce" />
-                  </div>
-                  <h3 className="text-sm font-bold text-[#03091e] uppercase">Mapa de Cobertura</h3>
-                  <p className="text-xs text-gray-500 max-w-sm mt-1">
-                    Visualiza las {totalBranches} sedes de {benefit.alliedName} disponibles para ti.
-                  </p>
+                <div className="lg:col-span-7 w-full h-[300px] lg:h-[450px] bg-white rounded-3xl overflow-hidden relative shadow-inner border border-gray-100">
+                  <BenefitMap 
+                    activeCity={activeCity}
+                    headquarters={headquarters}
+                    selectedCoordinates={selectedCoordinates}
+                  />
                 </div>
 
               </div>
