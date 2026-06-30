@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="58px" height="58px" viewBox="0 0 58 58" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>Group 5</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="21" cy="21" r="21"></circle>
+        <filter x="-32.3%" y="-27.5%" width="164.5%" height="164.5%" filterUnits="objectBoundingBox" id="filter-2">
+            <feMorphology radius="0.552631579" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="2" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="4" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.751132246   0 0 0 0 0.751132246   0 0 0 0 0.751132246  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="2_HOME_CLASICO" transform="translate(-1850.000000, -2510.000000)">
+            <g id="Group-5" transform="translate(1859.000000, 2516.000000)">
+                <g id="Oval-Copy-2">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use stroke="#FFFFFF" stroke-width="1.10526316" fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <g id="Group-5-Copy" transform="translate(8.842105, 13.263158)">
+                    <g id="Group-10">
+                        <path d="M20.5263158,18.940212 L20.5263158,15 L21,15 L21.4736842,15 C22.781727,15 23.8421053,13.9396218 23.8421053,12.6315789 L23.8421053,2.84210526 C23.8421053,1.53406243 22.781727,0.473684211 21.4736842,0.473684211 L2.84210526,0.473684211 C1.53406243,0.473684211 0.473684211,1.53406243 0.473684211,2.84210526 L0.473684211,12.6315789 C0.473684211,13.9396218 1.53406243,15 2.84210526,15 L14.7278588,15 L19.744362,19.2998599 C19.94299,19.4701125 20.2420268,19.4471097 20.4122794,19.2484816 C20.4858669,19.1626296 20.5263158,19.0532858 20.5263158,18.940212 Z" id="Combined-Shape" stroke="#000325" stroke-width="0.947368421" fill="#E0E2FF"></path>
+                        <g id="Group-14" transform="translate(5.422046, 6.631579)" fill="#000325">
+                            <ellipse id="Oval" cx="1.30337637" cy="1.18421053" rx="1.19910626" ry="1.18421053"></ellipse>
+                            <ellipse id="Oval-Copy-3" cx="6.82969215" cy="1.18421053" rx="1.19910626" ry="1.18421053"></ellipse>
+                            <ellipse id="Oval-Copy-6" cx="12.3560079" cy="1.18421053" rx="1.19910626" ry="1.18421053"></ellipse>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

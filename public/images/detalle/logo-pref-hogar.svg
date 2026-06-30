@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="55px" height="40px" viewBox="0 0 55 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>Group 20</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="4.12075506%" x2="50%" y2="97.4598085%" id="linearGradient-1">
+            <stop stop-color="#ECD891" offset="0%"></stop>
+            <stop stop-color="#C88D25" offset="100%"></stop>
+        </linearGradient>
+        <path d="M0,0 L47,0 L47,32 L8,32 C3.581722,32 5.41083001e-16,28.418278 0,24 L0,0 Z" id="path-2"></path>
+        <filter x="-14.9%" y="-15.6%" width="129.8%" height="143.8%" filterUnits="objectBoundingBox" id="filter-3">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <linearGradient x1="50%" y1="100%" x2="50%" y2="0%" id="linearGradient-4">
+            <stop stop-color="#F2AD24" offset="0%"></stop>
+            <stop stop-color="#FFDA90" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-20" transform="translate(4.000000, 2.000000)">
+            <g id="Rectangle-3-Copy-3">
+                <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                <path stroke="url(#linearGradient-1)" stroke-width="1" d="M0.5,0.5 L0.5,24 C0.5,28.1421356 3.85786438,31.5 8,31.5 L46.5,31.5 L46.5,0.5 L0.5,0.5 Z" stroke-linejoin="square" fill="#24383C" fill-rule="evenodd"></path>
+            </g>
+            <path d="M30.908564,13.2717517 L30.908564,7.2578032 C30.908564,7.06539432 30.7525858,6.9094161 30.5601769,6.9094161 L27.6962045,6.9094161 C27.5037956,6.9094161 27.3478174,7.06539432 27.3478174,7.2578032 L27.3478174,9.63711408 L24.0376286,6.25439641 C23.9030572,6.11687649 23.6824837,6.11448621 23.5449638,6.24905756 C23.5431849,6.25079829 23.5414247,6.25255803 23.5396836,6.25433648 L14.5796937,15.406239 C14.4450892,15.5437265 14.4474264,15.7643007 14.5849139,15.8989051 C14.6500242,15.9626501 14.7375173,15.998349 14.8286368,15.998349 L15.7795654,15.998349 L15.7795654,25.6516129 C15.7795654,25.8440218 15.9355436,26 16.1279525,26 L20.7714902,26 C20.9638991,26 21.1198773,25.8440218 21.1198773,25.6516129 L21.1198773,20.4838069 C21.1198773,19.0103104 22.3143822,17.8158054 23.7878788,17.8158054 L23.7878788,17.8158054 C25.2613753,17.8158054 26.4558803,19.0103104 26.4558803,20.4838069 L26.4558803,25.6516129 C26.4558803,25.8440218 26.6118585,26 26.8042674,26 L31.4467279,26 C31.6391368,26 31.795115,25.8440218 31.795115,25.6516129 L31.795115,15.998349 L32.7476045,15.998349 C32.9400134,15.998349 33.0959916,15.8423708 33.0959916,15.6499619 C33.0959916,15.5588927 33.060332,15.4714438 32.9966494,15.4063429 L30.908564,13.2717517 Z" id="Stroke-25-Copy-5" stroke="url(#linearGradient-4)"></path>
+        </g>
+    </g>
+</svg>

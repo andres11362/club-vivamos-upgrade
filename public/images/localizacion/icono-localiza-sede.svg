@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="95px" height="95px" viewBox="0 0 95 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ubicacion/desktop_una_ciudad" transform="translate(-912.000000, 0.000000)">
+            <g id="Group" transform="translate(912.000000, 0.000000)">
+                <circle id="Oval" fill="#FFFFFF" cx="47.5" cy="47.5" r="47.5"></circle>
+                <g id="Group-Copy" transform="translate(29.000000, 37.000000)">
+                    <path d="M6.8630682,25.4558441 L15.0860358,33.2411348 C17.0286786,35.0803783 18,36 18,36 C18,36 18.9713214,35.0803783 20.9139642,33.2411348 L29.1369318,25.4558441 C34.9603083,19.9424235 35.2115772,10.7521336 29.6981566,4.92875712 C29.5162304,4.73660335 29.3290856,4.54945854 29.1369318,4.36753237 L29.1369318,4.36753237 C22.8901201,-1.54678564 13.1098799,-1.54678564 6.8630682,4.36753237 L6.8630682,4.36753237 C1.03969171,9.88095299 0.788422826,19.0712429 6.30184345,24.8946194 C6.48376961,25.0867731 6.67091442,25.273918 6.8630682,25.4558441 Z" id="Rectangle-3-Copy-4" fill="#F21C45"></path>
+                    <ellipse id="Oval-Copy-3" fill="#FFFFFF" cx="18" cy="14.8235294" rx="6.75" ry="6.35294118"></ellipse>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

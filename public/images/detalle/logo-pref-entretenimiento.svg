@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="55px" height="40px" viewBox="0 0 55 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>Group 19</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="4.12075506%" x2="50%" y2="97.4598085%" id="linearGradient-1">
+            <stop stop-color="#ECD891" offset="0%"></stop>
+            <stop stop-color="#C88D25" offset="100%"></stop>
+        </linearGradient>
+        <path d="M0,0 L47,0 L47,32 L8,32 C3.581722,32 5.41083001e-16,28.418278 0,24 L0,0 Z" id="path-2"></path>
+        <filter x="-14.9%" y="-15.6%" width="129.8%" height="143.8%" filterUnits="objectBoundingBox" id="filter-3">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-19" transform="translate(4.000000, 2.000000)">
+            <g id="Rectangle-3-Copy">
+                <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                <path stroke="url(#linearGradient-1)" stroke-width="1" d="M0.5,0.5 L0.5,24 C0.5,28.1421356 3.85786438,31.5 8,31.5 L46.5,31.5 L46.5,0.5 L0.5,0.5 Z" stroke-linejoin="square" fill="#24383C" fill-rule="evenodd"></path>
+            </g>
+            <g id="Group-8-Copy-4" transform="translate(12.000000, 5.000000)" stroke="#F6C971" stroke-width="0.9">
+                <path d="M23.3350883,13.8153106 L23.3350883,10.8152194 C23.3350883,10.1450058 22.8281839,9.60198103 22.2025508,9.60198103 L2.55458231,9.60198103 C1.92916398,9.60198103 1.42204484,10.1450058 1.42204484,10.8152194 L1.42204484,13.8153106 C2.2181489,13.8153106 2.86331954,14.508524 2.86331954,15.3636558 C2.86331954,16.2190176 2.2181489,16.9124609 1.42204484,16.9124609 L1.42204484,19.9125522 C1.42204484,20.5825358 1.92916398,21.1257906 2.55458231,21.1257906 L22.2025508,21.1257906 C22.8281839,21.1257906 23.3350883,20.5825358 23.3350883,19.9125522 L23.3350883,16.9124609 C22.5389843,16.9124609 21.8935989,16.2190176 21.8935989,15.3636558 C21.8935989,14.508524 22.5389843,13.8153106 23.3350883,13.8153106 Z" id="Stroke-26"></path>
+                <path d="M22.656235,9.7026838 C22.9504622,9.38085087 23.0466639,8.89595018 22.8630061,8.46526198 L21.7683477,5.89726751 C21.0618276,6.21867018 20.2359925,5.88586567 19.9240658,5.15356667 C19.611931,4.4214828 19.9317703,3.56720567 20.6384986,3.24580299 L19.5438402,0.677808518 C19.2993796,0.104059564 18.6511636,-0.156031357 18.0958176,0.0965300499 L0.656036767,8.03048634 C0.100898974,8.28283262 -0.15105779,8.95295935 0.0934027392,9.52649318 L1.40336968,12.5714286" id="Stroke-30"></path>
+                <polygon id="Stroke-34" points="10.8134671 11.6972191 11.7808867 13.7664835 13.943784 14.0983326 12.3787435 15.708535 12.7480704 17.9829334 10.8134671 16.9092162 8.87862799 17.9829334 9.24795491 15.708535 7.6829144 14.0983326 9.84581171 13.7664835"></polygon>
+                <path d="M18.6394361,9.60198103 L18.6394361,21.1257906" id="Path-8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2"></path>
+                <path d="M15.5090014,2.26864769 L18.6394361,9.60198103" id="Path-8-Copy" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2"></path>
+            </g>
+        </g>
+    </g>
+</svg>

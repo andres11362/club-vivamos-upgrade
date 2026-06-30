@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="55px" height="40px" viewBox="0 0 55 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>Group 24</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="4.12075506%" x2="50%" y2="97.4598085%" id="linearGradient-1">
+            <stop stop-color="#ECD891" offset="0%"></stop>
+            <stop stop-color="#C88D25" offset="100%"></stop>
+        </linearGradient>
+        <path d="M0,0 L47,0 L47,32 L8,32 C3.581722,32 5.41083001e-16,28.418278 0,24 L0,0 Z" id="path-2"></path>
+        <filter x="-14.9%" y="-15.6%" width="129.8%" height="143.8%" filterUnits="objectBoundingBox" id="filter-3">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <linearGradient x1="50%" y1="100%" x2="50%" y2="0%" id="linearGradient-4">
+            <stop stop-color="#F2AD24" offset="0%"></stop>
+            <stop stop-color="#FFDA90" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="100%" x2="50%" y2="0%" id="linearGradient-5">
+            <stop stop-color="#F2AD24" offset="0%"></stop>
+            <stop stop-color="#FFDA90" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-24" transform="translate(4.000000, 2.000000)">
+            <g id="Rectangle-3-Copy-8">
+                <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                <path stroke="url(#linearGradient-1)" stroke-width="1" d="M0.5,0.5 L0.5,24 C0.5,28.1421356 3.85786438,31.5 8,31.5 L46.5,31.5 L46.5,0.5 L0.5,0.5 Z" stroke-linejoin="square" fill="#24383C" fill-rule="evenodd"></path>
+            </g>
+            <g id="Group-7-Copy" transform="translate(13.000000, 6.000000)">
+                <g id="Group-14-Copy-5" transform="translate(0.000000, 0.000000)">
+                    <g id="Group-14-Copy-3" transform="translate(0.000000, -0.000000)">
+                        <path d="M18.0156339,2.22222222 C16.7488029,-0.574032399 12.8902524,-0.574032399 10.0174826,2.05107931 L10.0114552,2.05107931 C1.90872346,-5.38237621 -7.73765065,8.95842869 10.0114552,20 L10.0174826,20 C13.5024238,17.6593076 15.8730616,15.1743154 17.3715755,12.7744787 L18.0156339,2.22222222 Z" id="Stroke-24" stroke="url(#linearGradient-4)"></path>
+                        <path d="M21.3939394,5.59244019 L19.2695775,5.59244019 C18.9348594,5.59244019 18.6635169,5.32109761 18.6635169,4.98637958 L18.6635169,2.82828283 C18.6635169,2.4935648 18.3921743,2.22222222 18.0574562,2.22222222 L16.044739,2.22222222 C15.710021,2.22222222 15.4386784,2.4935648 15.4386784,2.82828283 L15.4386784,4.98637958 C15.4386784,5.32109761 15.1673358,5.59244019 14.8326178,5.59244019 L12.7060606,5.59244019 C12.3713426,5.59244019 12.1,5.86378276 12.1,6.19850079 L12.1,8.24681609 C12.1,8.58153412 12.3713426,8.85287669 12.7060606,8.85287669 L14.8326178,8.85287669 C15.1673358,8.85287669 15.4386784,9.12421927 15.4386784,9.4589373 L15.4386784,11.6161616 C15.4386784,11.9508796 15.710021,12.2222222 16.044739,12.2222222 L18.0574562,12.2222222 C18.3921743,12.2222222 18.6635169,11.9508796 18.6635169,11.6161616 L18.6635169,9.4589373 C18.6635169,9.12421927 18.9348594,8.85287669 19.2695775,8.85287669 L21.3939394,8.85287669 C21.7286574,8.85287669 22,8.58153412 22,8.24681609 L22,6.19850079 C22,5.86378276 21.7286574,5.59244019 21.3939394,5.59244019 Z" id="Stroke-23" stroke="url(#linearGradient-5)" fill="#24383C"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

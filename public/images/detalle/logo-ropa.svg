@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="53px" height="38px" viewBox="0 0 53 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>Group 29</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M0.443090056,31.8173077 L37.6861403,31.8173077 C38.002927,31.8173077 38.2818684,31.6086561 38.371343,31.3047679 L47.2649823,1.09872391 C47.3764035,0.720296937 47.1599525,0.323196547 46.7815255,0.211775368 C46.716013,0.192486358 46.6480728,0.182692308 46.5797796,0.182692308 L-0.271195658,0.182692308 L-0.271195658,31.103022 C-0.271195658,31.4975111 0.0486009492,31.8173077 0.443090056,31.8173077 Z" id="path-1"></path>
+        <filter x="-9.1%" y="-11.9%" width="122.6%" height="130.1%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="1" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="1.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-29" transform="translate(4.000000, 2.000000)">
+            <g id="Group-16">
+                <g id="Combined-Shape" transform="translate(23.479835, 16.000000) scale(-1, 1) translate(-23.479835, -16.000000) ">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#6CB52D" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <g id="Group-10-Copy-5" transform="translate(13.000000, 6.000000)" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
+                    <g id="Group-10-Copy-3">
+                        <g id="Group-2">
+                            <polyline id="Stroke-20" points="13.3157171 8.23529412 0 20 25.8823529 20 13.640974 8.40966113"></polyline>
+                            <path d="M9.69037224,2.98911899 C9.69037224,1.33790795 11.1942945,8.8817842e-16 12.4922449,8.8817842e-16 C13.7914946,8.8817842e-16 15.2941176,1.33790795 15.2941176,2.98911899 C15.2941176,2.98911899 15.1775564,5.92657128 13.1312381,8.23529412" id="Stroke-21"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

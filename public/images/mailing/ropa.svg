@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100px" height="80px" viewBox="0 0 100 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.1 (78136) - https://sketchapp.com -->
+    <title>Group 17</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-17">
+            <g id="ropa" transform="translate(6.000000, 17.000000)">
+                <g id="Ropa-y-accesorios»" opacity="0.8" transform="translate(0.000000, 34.000000)" fill="#0B545C" font-family="ArialMT, Arial" font-size="10" font-weight="normal">
+                    <text>
+                        <tspan x="0.08886719" y="9">Ropa y accesorios»</tspan>
+                    </text>
+                </g>
+                <g id="Group-6-Copy" transform="translate(26.000000, 0.000000)">
+                    <polygon id="Path-20" fill="#FFFFFF" fill-rule="nonzero" points="18.5473351 11.3642384 -1.77635684e-15 28.0763537 36.0512821 28.0763537"></polygon>
+                    <path d="M19.3775641,28.410596 C13.5556373,27.5573712 11.3099135,25.6021141 12.6403928,22.5448247 C14.6361116,17.9588905 18.025641,19.4754528 19.3775641,17.2831722 C20.2788462,15.8216519 20.2788462,13.960088 19.3775641,11.6984807 L18.025641,11.6984807 L-5.32907052e-14,28.410596 L19.3775641,28.410596 Z" id="Path-5" fill-opacity="0.2" fill="#6CB52D" fill-rule="nonzero"></path>
+                    <g id="Group-10-Copy-4" stroke-linecap="round" stroke-linejoin="round" stroke="#000325" stroke-width="0.992903226">
+                        <g id="Group-2">
+                            <polyline id="Stroke-20" points="18.5473351 11.6984807 0 28.410596 36.0512821 28.410596 19.0003823 11.9461743"></polyline>
+                            <path d="M13.4976269,4.2461326 C13.4976269,1.90053812 15.5924258,8.8817842e-16 17.4003286,8.8817842e-16 C19.2100411,8.8817842e-16 21.3030303,1.90053812 21.3030303,4.2461326 C21.3030303,4.2461326 21.1406732,8.41887112 18.2903761,11.6984807" id="Stroke-21"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+            <rect id="Rectangle" stroke="#FFFFFF" fill-opacity="0" fill="#FFFFFF" x="0.5" y="0.5" width="99" height="79"></rect>
+        </g>
+    </g>
+</svg>

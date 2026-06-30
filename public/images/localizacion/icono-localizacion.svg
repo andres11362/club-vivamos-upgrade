@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="36px" viewBox="0 0 34 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>Group Copy 5</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-40.0%" y="-43.3%" width="180.0%" height="186.7%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ubicacion/desktop_una_ciudad" transform="translate(-559.000000, -393.000000)">
+            <g id="Group-Copy-5" filter="url(#filter-1)" transform="translate(561.000000, 395.000000)">
+                <path d="M5.7192235,21.2132034 L12.5716965,27.7009457 C14.1905655,29.2336486 15,30 15,30 C15,30 15.8094345,29.2336486 17.4283035,27.7009457 L24.2807765,21.2132034 C29.1335902,16.6186863 29.342981,8.96011134 24.7484638,4.1072976 C24.5968587,3.94716946 24.4409046,3.79121545 24.2807765,3.63961031 L24.2807765,3.63961031 C19.0751001,-1.28898803 10.9248999,-1.28898803 5.7192235,3.63961031 L5.7192235,3.63961031 C0.866409755,8.23412749 0.657019022,15.8927024 5.25153621,20.7455161 C5.40314134,20.9056443 5.55909535,21.0615983 5.7192235,21.2132034 Z" id="Rectangle-3-Copy-4" fill="#F21C45"></path>
+                <ellipse id="Oval-Copy-3" fill="#FFFFFF" cx="15" cy="12.3529412" rx="5.625" ry="5.29411765"></ellipse>
+            </g>
+        </g>
+    </g>
+</svg>

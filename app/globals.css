@@ -1,26 +1,101 @@
 @import "tailwindcss";
 
+/* ============================================================================
+   CLUB VIVAMOS · Tokens de diseño (Tailwind v4, CSS-first)
+   Fuente de verdad: migrado desde club-vivamos/src/scss/_colors.scss
+   Convención: híbrido semántico — marca por rol (primary/secondary/accent/ink)
+   + escala descriptiva para grises y colores de categoría.
+   Cada token genera utilidades: bg-*, text-*, border-*, ring-*, etc.
+   ========================================================================== */
+
+@theme {
+  /* ---- Marca (roles) ---- */
+  --color-primary: #0b545c; /* teal · $verde-azul1 / $aqua-dark */
+  --color-primary-hover: #5aa5ae; /* hover de enlaces teal (mixins legacy) */
+  --color-secondary: #f2ad24; /* amarillo · $amarillo2 / $yellow-orange */
+  --color-accent: #07c4d9; /* cian · $azul-claro2 / $blue-light */
+  --color-ink: #000325; /* navy casi-negro (texto) · $negro / $black */
+  --color-ink-54: rgba(0, 0, 0, 0.54); /* $black-54 (texto atenuado) */
+
+  /* ---- Soporte ---- */
+  --color-sky: #9eeef7; /* $azul-claro / $blue-light2 */
+  --color-sky-2: #76e8f4; /* $blue-light3 */
+  --color-info: #1e73c2; /* $blue-a */
+  --color-danger: #f21c45; /* $red */
+  --color-purple: #9097eb; /* $purpure */
+  --color-facebook: #3d5a98;
+
+  /* ---- Neutros (escala de grises legacy) ---- */
+  --color-gray: #9b9b9b; /* $gray */
+  --color-gray-1: #616161; /* $gray-1 / navbar1-fuente */
+  --color-gray-2: #434343; /* $gray-2 */
+  --color-gray-3: #979797; /* $gray-3 */
+  --color-gray-medium: rgba(48, 48, 52, 0.7); /* $gray-medium */
+  --color-gray-medium-2: #5a5a5f; /* $gray-medium-2 */
+  --color-gray-dark: #303034; /* $gray-drark (typo legacy corregido) */
+  --color-gray-light: #eaeaea; /* $gris-claro */
+  --color-gray-line: #d8d8d8; /* $gris-claro1 (bordes / divisores) */
+  --color-silver: #818181; /* $sociopreferente */
+
+  /* ---- Colores de categoría (beneficios) ---- */
+  --color-cat-purple: #7d12ff;
+  --color-cat-blue: #3a9cff;
+  --color-cat-yellow: #ffda3a;
+  --color-cat-red: #d43131;
+  --color-cat-green: #6cb52d;
+  --color-cat-aqua: #48c7ac;
+
+  /* ---- Breakpoint extra del diseño ----
+     Se CONSERVA la escala default de Tailwind (sm640/md768/lg1024/xl1280)
+     porque los componentes ya construidos la usan. `mobile` = corte 812px del
+     SCSS legacy (header/menú): usa `mobile:` (>=812) y `max-mobile:` (<812).
+     Los demás breakpoints legacy (xs576/sm720/md991/lg1140) se portan puntual-
+     mente con variantes arbitrarias, ej. `max-[991px]:flex`. */
+  --breakpoint-mobile: 812px;
+}
+
+/* Familias tipográficas: referencian las CSS vars de next/font (ver layout.tsx).
+   `inline` para que las utilidades font-maven / font-barlow emitan el var()
+   directamente y resuelvan en tiempo de ejecución. */
+@theme inline {
+  --font-maven: var(--font-maven-pro), system-ui, sans-serif; /* UI / cuerpo */
+  --font-barlow: var(--font-barlow-cond), system-ui, sans-serif; /* display / títulos */
+}
+
+/* ---- Gradientes de marca (sin equivalente directo en utilidades de color) ---- */
+@utility bg-gradient-yellow {
+  /* $amarillo-degrade */
+  background-image: linear-gradient(to top, #f2ad24, #ffda90);
+}
+
+@utility bg-gradient-silver {
+  /* $sociopreferente2 (degradado plateado "socio preferente") */
+  background-image: linear-gradient(
+    79.19deg,
+    #c8c8c8 0%,
+    #ffffff 49.31%,
+    #bebebe 76.94%,
+    #7d7d7d 100%
+  );
+}
+
+/* ============================================================================
+   Base global (portado de _main.scss).
+   Tailwind preflight ya aplica reset + box-sizing; aquí solo lo del proyecto.
+   ========================================================================== */
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: var(--color-ink, #000325); /* texto de marca #000325 */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  max-width: 1920px; /* lienzo máximo legacy */
+  overflow-x: hidden; /* evita scroll horizontal por elementos decorativos */
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-maven-pro), system-ui, sans-serif; /* Maven Pro base */
 }
