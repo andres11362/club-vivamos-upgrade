@@ -112,8 +112,9 @@ const BeneficioDetailTemplate: React.FC<BeneficioDetailTemplateProps> = ({ benef
     <div className="min-h-screen flex flex-col font-barlow bg-white">
       <main className="flex-grow pb-16">
         
-        {/* Breadcrumb — arriba, full-width (como producción .miga-pan) */}
-        <section className="max-w-[1140px] mx-auto px-4 md:px-6 pt-6">
+        {/* Breadcrumb — arriba, full-width (como producción .miga-pan).
+            pt extra en desktop para no quedar bajo el logo circular absoluto del Header (130px). */}
+        <section className="max-w-[1140px] mx-auto px-4 md:px-6 pt-6 mobile:pt-14">
           <Breadcrumb />
         </section>
 
@@ -146,49 +147,57 @@ const BeneficioDetailTemplate: React.FC<BeneficioDetailTemplateProps> = ({ benef
 
             {/* LADO DERECHO: Información */}
             <div className="lg:col-span-7 flex flex-col pt-2 lg:pt-0 lg:pl-[62px]">
-              {/* Cabecera del beneficio: Logos y Título */}
-              <div className="flex flex-col-reverse gap-4 border-b border-gray-100 pb-6 mb-6 md:flex-row md:items-start md:justify-between">
-                {/* Nombre del aliado + oferta (descuento grande con barra de acento por segmento) */}
-                <div className="relative pl-5">
-                  <span
-                    aria-hidden
-                    className={`absolute left-0 top-1 bottom-1 w-1 ${isPref ? 'bg-secondary' : 'bg-sky'}`}
-                  />
+              {/* Cabecera del beneficio: Nombre / Oferta / Logo en 3 columnas con divisores
+                  (como producción: aliado | descuento+detalle | logo, separados por línea vertical) */}
+              <div className="grid grid-cols-1 gap-4 border-b border-gray-100 pb-6 mb-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] sm:items-center sm:gap-0">
+                {/* Nombre del aliado */}
+                <div className="sm:pr-6">
                   <h1 className="font-barlow text-2xl font-semibold uppercase leading-tight text-ink">
                     {benefit.alliedName}
                   </h1>
-                  {benefit.title && benefit.title !== benefit.alliedName && (
-                    <span className="mt-1 block font-barlow text-[20px] font-medium uppercase leading-tight text-ink">
-                      {benefit.title}
-                    </span>
-                  )}
-                  {benefit.discount && (
-                    <span className={`mt-0.5 block font-barlow text-[32px] font-semibold uppercase leading-[36px] ${isPref ? 'text-secondary' : 'text-accent'}`}>
-                      {benefit.discount}
-                    </span>
-                  )}
                 </div>
+
+                {/* Oferta: descuento grande (color por segmento) + detalle/título como caption */}
+                {(benefit.discount || (benefit.title && benefit.title !== benefit.alliedName)) && (
+                  <div className="relative border-t border-gray-100 pt-4 sm:border-t-0 sm:border-l sm:border-gray-100 sm:pl-6 sm:pr-6 sm:pt-0">
+                    <span
+                      aria-hidden
+                      className={`absolute left-0 top-0 bottom-0 hidden w-[3px] sm:block ${isPref ? 'bg-secondary' : 'bg-sky'}`}
+                    />
+                    {benefit.discount && (
+                      <span className={`block font-barlow text-[28px] font-semibold uppercase leading-[32px] ${isPref ? 'text-secondary' : 'text-accent'}`}>
+                        {benefit.discount}
+                      </span>
+                    )}
+                    {benefit.title && benefit.title !== benefit.alliedName && (
+                      <span className="mt-1 block font-barlow text-[13px] font-medium uppercase leading-tight text-gray-500">
+                        {benefit.title}
+                      </span>
+                    )}
+                  </div>
+                )}
+
                 {/* Logo del aliado */}
                 {imageLogoUrl && (
-                  <img
-                    src={imageLogoUrl}
-                    alt={`Logo ${benefit.alliedName}`}
-                    className="h-[70px] max-w-[160px] shrink-0 object-contain object-right md:h-[100px]"
-                  />
+                  <div className="border-t border-gray-100 pt-4 sm:border-t-0 sm:border-l sm:border-gray-100 sm:pl-6 sm:pt-0">
+                    <img
+                      src={imageLogoUrl}
+                      alt={`Logo ${benefit.alliedName}`}
+                      className="h-[70px] max-w-[160px] shrink-0 object-contain md:h-[90px]"
+                    />
+                  </div>
                 )}
               </div>
 
-              {/* Tags de Categoría y Aplicación */}
-              <div className="flex flex-col md:flex-row gap-4 md:gap-10 mb-8">
-                <div className="flex items-center gap-2 text-sm text-gray-700 font-semibold">
+              {/* Tags de Categoría y Aplicación — una sola fila (como producción) */}
+              <div className="flex flex-wrap items-center gap-x-8 gap-y-2 mb-8 text-sm">
+                <span className="flex items-center gap-2 font-semibold text-gray-700">
                   {React.createElement(categoryIcon, { className: "w-5 h-5 text-gray-500" })} {categoryTitle}
-                </div>
-                <div className="flex flex-col text-xs font-semibold">
-                  <span className="text-gray-400">APLICA PARA SOCIOS:</span>
-                  <span className="text-ink flex items-center gap-1 mt-0.5">
-                    <ShieldCheck className="w-4 h-4 text-primary" /> {segmentLabel}
-                  </span>
-                </div>
+                </span>
+                <span className="flex items-center gap-1.5 font-semibold text-ink">
+                  <span className="text-gray-400">APLICA PARA</span>
+                  <ShieldCheck className="w-4 h-4 text-primary" /> {segmentLabel}
+                </span>
               </div>
 
               {/* Subtítulo (lead) + descripción (content, con saltos de línea, colapsable) */}
@@ -302,11 +311,11 @@ const BeneficioDetailTemplate: React.FC<BeneficioDetailTemplateProps> = ({ benef
             SECCIÓN INFERIOR: Localiza tu Sede (Mapa)
             ========================================= */}
         {totalBranches > 0 && (
-          <section className="w-full bg-gray-50 mt-12 pb-16">
-            
-            {/* Título de sección superpuesto con icono */}
-            <div className="flex flex-col items-center -translate-y-6">
-              <div className="w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center mb-2">
+          <section className="w-full pt-4 pb-16">
+
+            {/* Título de sección con icono (misma línea que producción, sobre fondo blanco) */}
+            <div className="flex flex-col items-center mb-8">
+              <div className="w-12 h-12 bg-white rounded-full shadow-md border border-gray-100 flex items-center justify-center mb-2">
                 <MapPin className="w-6 h-6 text-danger" />
               </div>
               <h2 className="font-barlow text-[24px] font-semibold leading-[29px] text-ink uppercase">
@@ -314,7 +323,7 @@ const BeneficioDetailTemplate: React.FC<BeneficioDetailTemplateProps> = ({ benef
               </h2>
             </div>
 
-            <div className="max-w-7xl mx-auto px-4 md:px-6">
+            <div className="max-w-[1140px] mx-auto px-4 md:px-6">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 
                 {/* Lista de ciudades y sedes (Desktop: Izquierda) */}
