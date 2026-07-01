@@ -99,7 +99,7 @@ export default function BenefitMap({ activeCity, headquarters, selectedCoordinat
               position={{ lat, lng }}
               onClick={() => setActiveMarker(branch)}
               icon={{
-                url: '/static/images/localizacion/icono-boton-hover.svg',
+                url: '/images/localizacion/icono-boton-hover.svg',
                 scaledSize: new window.google.maps.Size(32, 32),
               }}
             />
@@ -115,7 +115,7 @@ export default function BenefitMap({ activeCity, headquarters, selectedCoordinat
             onCloseClick={() => setActiveMarker(null)}
           >
             <div className="p-2 text-gray-800 text-xs font-semibold max-w-[200px]">
-              <p className="font-bold text-[#03091e] mb-1">{activeMarker.name || 'Sede'}</p>
+              <p className="font-bold text-ink mb-1">{activeMarker.name || 'Sede'}</p>
               <p className="text-gray-600 mb-0.5">{activeMarker.address}</p>
               {activeMarker.phone && <p className="text-gray-400">Tel: {activeMarker.phone}</p>}
             </div>

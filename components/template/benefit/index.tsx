@@ -4,7 +4,7 @@ import React from 'react';
 import { Home, Calendar, ShoppingBag, MapPin, Share2, Globe, HeartPulse, Tent, Utensils, Plane, ShieldCheck } from 'lucide-react';
 import Breadcrumb from '@/components/molecules/breadcrumb';
 import { Benefit, HeadquartersState } from '@/context/BenefitsContext';
-import { CATEGORIES } from '@/utils/JSONObjects';
+import { CATEGORIES, getHostname } from '@/utils/JSONObjects';
 import dynamic from 'next/dynamic';
 
 const BenefitMap = dynamic(
@@ -60,11 +60,26 @@ const BeneficioDetailTemplate: React.FC<BeneficioDetailTemplateProps> = ({ benef
   const categoryTitle = categoryInfo ? categoryInfo.title : 'Beneficios';
   const categoryIcon = getCategoryIcon(benefit.categoryId);
 
-  const segmentLabel = benefit.segmentId === 3 
-    ? "SOCIOS PREFERENTES" 
-    : benefit.segmentId === 2 
-    ? "SOCIOS CLÁSICOS" 
+  const segmentLabel = benefit.segmentId === 3
+    ? "SOCIOS PREFERENTES"
+    : benefit.segmentId === 2
+    ? "SOCIOS CLÁSICOS"
     : "TODOS LOS SOCIOS";
+
+  const isPref = benefit.segmentId === 3;
+  const [showMore, setShowMore] = React.useState(false);
+
+  // Normalización de los campos REALES que devuelve la API de detalle
+  const alliedUrl = benefit.alliedUrl as string | undefined;
+  const vigenciaFrom = benefit.fechainicio as string | undefined;
+  const vigenciaTo = benefit.fechafinal as string | undefined;
+  const canal = (benefit.canal as string | undefined)?.replace(/;+\s*$/, "");
+  const tyc = benefit.tyc as string | undefined;
+  const comoRedimir = benefit.comoRedBeneficio as string | undefined;
+  const DAY_MAP: Record<string, string> = { "1": "L", "2": "M", "3": "M", "4": "J", "5": "V", "6": "S", "7": "D" };
+  const dias = (benefit.diasSemana as string | undefined)
+    ? String(benefit.diasSemana).split(";").filter(Boolean).map((d) => DAY_MAP[d.trim()] ?? d.trim())
+    : [];
 
   const formattedDate = (dateStr: string | undefined) => {
     if (!dateStr) return '';
@@ -97,15 +112,20 @@ const BeneficioDetailTemplate: React.FC<BeneficioDetailTemplateProps> = ({ benef
     <div className="min-h-screen flex flex-col font-barlow bg-white">
       <main className="flex-grow pb-16">
         
+        {/* Breadcrumb — arriba, full-width (como producción .miga-pan) */}
+        <section className="max-w-[1140px] mx-auto px-4 md:px-6 pt-6">
+          <Breadcrumb />
+        </section>
+
         {/* =========================================
             SECCIÓN SUPERIOR: Imagen y Contenido Principal
             ========================================= */}
-        <section className="max-w-7xl mx-auto px-4 md:px-6 pt-6 md:pt-10">
+        <section className="max-w-[1140px] mx-auto px-4 md:px-6 pt-4 pb-[47px]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             
             {/* LADO IZQUIERDO: Imagen Principal */}
             <div className="lg:col-span-5 w-full relative">
-              <div className="relative w-full aspect-[4/5] lg:aspect-auto lg:h-[600px] rounded-3xl overflow-hidden shadow-lg">
+              <div className="relative w-full max-w-[472px] aspect-[4/5] lg:aspect-auto lg:h-[560px] rounded-[39px_0_44px_39px] overflow-hidden border border-[#d3d3d3]">
                 {imageBenefitUrl ? (
                   <img 
                     src={imageBenefitUrl} 
@@ -125,23 +145,36 @@ const BeneficioDetailTemplate: React.FC<BeneficioDetailTemplateProps> = ({ benef
             </div>
 
             {/* LADO DERECHO: Información */}
-            <div className="lg:col-span-7 flex flex-col pt-2 lg:pt-0">
-              <Breadcrumb />
-              
+            <div className="lg:col-span-7 flex flex-col pt-2 lg:pt-0 lg:pl-[62px]">
               {/* Cabecera del beneficio: Logos y Título */}
-              <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-gray-100 pb-6 mb-6 gap-6">
-                <div className="flex items-center gap-6">
-                  <h1 className="text-2xl font-bold text-ink uppercase">{benefit.alliedName}</h1>
-                  <div className="h-12 border-l border-gray-300"></div>
-                  <div className="flex flex-col">
-                    <span className="font-barlow text-xl font-semibold text-ink">{benefit.title}</span>
-                    <span className="text-xs font-bold uppercase tracking-wide leading-tight text-accent">
+              <div className="flex flex-col-reverse gap-4 border-b border-gray-100 pb-6 mb-6 md:flex-row md:items-start md:justify-between">
+                {/* Nombre del aliado + oferta (descuento grande con barra de acento por segmento) */}
+                <div className="relative pl-5">
+                  <span
+                    aria-hidden
+                    className={`absolute left-0 top-1 bottom-1 w-1 ${isPref ? 'bg-secondary' : 'bg-sky'}`}
+                  />
+                  <h1 className="font-barlow text-2xl font-semibold uppercase leading-tight text-ink">
+                    {benefit.alliedName}
+                  </h1>
+                  {benefit.title && benefit.title !== benefit.alliedName && (
+                    <span className="mt-1 block font-barlow text-[20px] font-medium uppercase leading-tight text-ink">
+                      {benefit.title}
+                    </span>
+                  )}
+                  {benefit.discount && (
+                    <span className={`mt-0.5 block font-barlow text-[32px] font-semibold uppercase leading-[36px] ${isPref ? 'text-secondary' : 'text-accent'}`}>
                       {benefit.discount}
                     </span>
-                  </div>
+                  )}
                 </div>
+                {/* Logo del aliado */}
                 {imageLogoUrl && (
-                  <img src={imageLogoUrl} alt={`Logo ${benefit.alliedName}`} className="h-12 object-contain" />
+                  <img
+                    src={imageLogoUrl}
+                    alt={`Logo ${benefit.alliedName}`}
+                    className="h-[70px] max-w-[160px] shrink-0 object-contain object-right md:h-[100px]"
+                  />
                 )}
               </div>
 
@@ -158,54 +191,73 @@ const BeneficioDetailTemplate: React.FC<BeneficioDetailTemplateProps> = ({ benef
                 </div>
               </div>
 
-              {/* Descripción Larga / Lead */}
+              {/* Subtítulo (lead) + descripción (content, con saltos de línea, colapsable) */}
               {benefit.lead && (
-                <div 
-                  className="prose prose-sm max-w-none text-gray-600 mb-8 leading-relaxed text-justify md:text-left"
-                  dangerouslySetInnerHTML={{ __html: benefit.lead }}
-                />
+                <p className="mb-2 font-maven text-[16px] font-medium uppercase text-ink">
+                  {benefit.lead}
+                </p>
               )}
-
               {benefit.content && (
-                <div 
-                  className="prose prose-sm max-w-none text-gray-500 mb-8 text-xs leading-relaxed text-justify"
-                  dangerouslySetInnerHTML={{ __html: benefit.content }}
-                />
+                <>
+                  <div className="whitespace-pre-line font-maven text-[16px] leading-6 text-gray-dark text-justify md:text-left">
+                    {showMore
+                      ? String(benefit.content)
+                      : `${String(benefit.content).slice(0, 320)}${String(benefit.content).length > 320 ? '…' : ''}`}
+                  </div>
+                  {String(benefit.content).length > 320 && (
+                    <button
+                      onClick={() => setShowMore((v) => !v)}
+                      className="mt-2 mb-6 block font-maven text-[14px] font-medium text-primary underline hover:text-primary-hover"
+                    >
+                      {showMore ? 'Ver menos' : 'Ver más de este beneficio'}
+                    </button>
+                  )}
+                </>
               )}
 
-              {/* Grilla de Detalles Técnicos (Vigencia, Modalidad) */}
+              {/* ¿Qué necesito para redimir el descuento? (comoRedBeneficio) */}
+              {comoRedimir && (
+                <div className="mb-6">
+                  <p className="mb-1 font-maven text-[14px] font-bold text-danger">
+                    ¿Qué necesito para redimir el descuento?
+                  </p>
+                  <p className="font-maven text-[14px] leading-6 text-gray-dark">{comoRedimir}</p>
+                </div>
+              )}
+
+              {/* Grilla de Detalles Técnicos (Vigencia, Días, Modalidad) */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 border-t border-b border-gray-100 py-6">
-                
+
                 <div className="flex flex-col gap-6">
-                  {(benefit.validFrom || benefit.validTo) && (
+                  {(vigenciaFrom || vigenciaTo) && (
                     <div className="flex items-start gap-3">
                       <Calendar className="w-5 h-5 text-gray-400 mt-0.5" />
                       <div>
                         <span className="block text-sm font-bold text-ink">Vigencia del descuento</span>
                         <span className="text-xs text-gray-500">
-                          Válido {benefit.validFrom ? `del ${formattedDate(benefit.validFrom)}` : ''} {benefit.validTo ? `al ${formattedDate(benefit.validTo)}` : ''}
+                          Válido {vigenciaFrom ? `del ${formattedDate(vigenciaFrom)}` : ''} {vigenciaTo ? `al ${formattedDate(vigenciaTo)}` : ''}
                         </span>
                       </div>
                     </div>
                   )}
-                  {benefit.modality && (
+                  {canal && (
                     <div className="flex items-start gap-3">
                       <ShoppingBag className="w-5 h-5 text-gray-400 mt-0.5" />
                       <div>
                         <span className="block text-sm font-bold text-ink">Modalidad de la compra</span>
-                        <span className="text-xs text-gray-500">{benefit.modality}</span>
+                        <span className="text-xs text-gray-500">{canal}</span>
                       </div>
                     </div>
                   )}
                 </div>
 
-                {benefit.days && (
+                {dias.length > 0 && (
                   <div className="flex flex-col">
                     <span className="block text-sm font-bold text-ink mb-2">Días que aplica</span>
                     <div className="flex flex-wrap gap-2">
-                      {String(benefit.days).split(',').map((dia, i) => (
-                        <div key={i} className="px-2.5 py-1 rounded-full bg-danger text-white flex items-center justify-center text-[10px] font-bold uppercase">
-                          {dia.trim()}
+                      {dias.map((dia, i) => (
+                        <div key={i} className="flex h-7 w-7 items-center justify-center rounded-full bg-danger text-[11px] font-bold uppercase text-white">
+                          {dia}
                         </div>
                       ))}
                     </div>
@@ -213,19 +265,19 @@ const BeneficioDetailTemplate: React.FC<BeneficioDetailTemplateProps> = ({ benef
                 )}
               </div>
 
-              {/* Links y Compartir */}
-              <div className="flex flex-col gap-4 mb-8">
-                {benefit.siteUrl && (
-                  <a 
-                    href={benefit.siteUrl} 
-                    target="_blank" 
+              {/* Botón web del aliado — outline rojo, centrado, ~70% (como producción .web-producto) */}
+              {alliedUrl && (
+                <div className="mb-5 text-center">
+                  <a
+                    href={alliedUrl}
+                    target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 w-max px-6 py-2 border border-danger text-danger text-sm font-bold rounded-full hover:bg-danger/5 transition"
+                    className="block w-full rounded-[25px] border-2 border-danger px-6 py-3 text-center font-maven text-[14px] font-medium text-danger transition hover:bg-danger/5 lg:mx-auto lg:w-[70%]"
                   >
-                    <Globe className="w-4 h-4" /> Ir al sitio web aliado
+                    Visite {getHostname(alliedUrl) || 'el sitio del aliado'}
                   </a>
-                )}
-              </div>
+                </div>
+              )}
 
               <div className="flex items-center gap-3 text-sm font-bold text-ink">
                 Comparte este beneficio 
@@ -233,13 +285,12 @@ const BeneficioDetailTemplate: React.FC<BeneficioDetailTemplateProps> = ({ benef
               </div>
 
               {/* Términos y condiciones detallados */}
-              {benefit.terms && (
+              {tyc && (
                 <div className="mt-8 border-t border-gray-100 pt-6">
                   <h3 className="text-sm font-bold text-ink mb-2">Términos y condiciones</h3>
-                  <div 
-                    className="text-xs text-gray-500 leading-relaxed text-justify space-y-1.5"
-                    dangerouslySetInnerHTML={{ __html: benefit.terms }}
-                  />
+                  <div className="whitespace-pre-line text-xs leading-relaxed text-gray-2 text-justify">
+                    {tyc}
+                  </div>
                 </div>
               )}
 
@@ -258,7 +309,7 @@ const BeneficioDetailTemplate: React.FC<BeneficioDetailTemplateProps> = ({ benef
               <div className="w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center mb-2">
                 <MapPin className="w-6 h-6 text-danger" />
               </div>
-              <h2 className="text-lg font-bold text-ink uppercase tracking-wide">
+              <h2 className="font-barlow text-[24px] font-semibold leading-[29px] text-ink uppercase">
                 LOCALIZA TU SEDE
               </h2>
             </div>
