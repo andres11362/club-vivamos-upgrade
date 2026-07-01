@@ -22,6 +22,9 @@ const nextConfig: NextConfig = {
     ELASTIC_INDEX: process.env.ELASTIC_INDEX,
     MAIL_VALUES: process.env.MAIL_VALUES,
     GOOGLE: process.env.GOOGLE,
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+    FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID,
+    CLIENT_ID: process.env.CLIENT_ID,
   },
   images: {
     remotePatterns: [

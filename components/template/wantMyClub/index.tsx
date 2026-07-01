@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button } from '@/components/atoms/button';
-import { Input, Select } from '@/components/atoms/input';
 import { CheckCircle2, Download } from 'lucide-react'; // Iconos
 import FormCarousel from '@/components/molecules/carousel/FormCarousel';
+import WantMyClubForm from '@/components/molecules/forms/wantMyClub';
 
 const IMAGE_ARRAY = [
   '/images/kwow-club/Carrusel-1.jpg',
@@ -90,56 +90,7 @@ export default function WantMyClubTemplate() {
               </p>
             </div>
 
-            <form className="flex flex-col gap-5">
-              
-              {/* Uso de los átomos Input con Grid interno para desktop */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <Input label="Nombres*" placeholder="Escribe tu nombre aquí" />
-                <Input label="Apellidos*" placeholder="Escribe tu apellido" />
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <Select 
-                  label="Tipo de documento*" 
-                  options={[
-                     { value: 'cc', label: 'Cédula de Ciudadanía' },
-                     { value: 'ce', label: 'Cédula de Extranjería' },
-                     { value: 'nit', label: 'NIT' }
-                  ]} 
-                />
-                <Input label="Número de documento*" placeholder="Ingresa el número de documento" type="number" />
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <Input label="Correo electrónico*" placeholder="Ingresa tu correo electrónico" type="email" />
-                <Input label="Celular*" placeholder="Ingresa tu Número de Celular" type="tel" />
-              </div>
-
-              {/* Checkboxes de TyC */}
-              <div className="flex flex-col gap-4 mt-4">
-                <label className="flex items-start gap-3 cursor-pointer group">
-                  <input type="checkbox" className="mt-1 w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-600" />
-                  <span className="text-xs text-gray-500 leading-relaxed">
-                    Autorizo el tratamiento de mis datos personales conforme con las <a href="#" className="text-blue-500 hover:underline">políticas de privacidad</a> y datos de <a href="#" className="text-blue-500 hover:underline">Navegación / cookies</a> de EL TIEMPO, las cuales he leído y entendido.
-                  </span>
-                </label>
-                
-                <label className="flex items-start gap-3 cursor-pointer group">
-                  <input type="checkbox" className="mt-1 w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-600" />
-                  <span className="text-xs text-gray-500 leading-relaxed">
-                    Autorizo el envío de información comercial y promocional diferente a la relacionada con el bien o servicio adquirido. <a href="#" className="text-blue-500 hover:underline">Encuesta</a>
-                  </span>
-                </label>
-              </div>
-
-              {/* Uso del átomo Button con variante 'primary' */}
-              <div className="mt-6 flex justify-center md:px-12">
-                 <Button type="button" variant="primary" size="lg" fullWidth>
-                   SOLICITAR ASESORÍA
-                 </Button>
-              </div>
-
-            </form>
+            <WantMyClubForm />
           </div>
 
         </div>
