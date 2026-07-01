@@ -30,7 +30,7 @@ export default async function CategoryPage({ params }: PageProps) {
     <BenefitsProvider>
       <Suspense fallback={
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
-          <div className="bg-[#0f092d] text-white px-5 py-2.5 rounded-full shadow-lg text-xs font-semibold animate-pulse">
+          <div className="bg-ink text-white px-5 py-2.5 rounded-full shadow-lg text-xs font-semibold animate-pulse">
             Cargando...
           </div>
         </div>

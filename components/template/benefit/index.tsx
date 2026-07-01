@@ -113,12 +113,12 @@ const BeneficioDetailTemplate: React.FC<BeneficioDetailTemplateProps> = ({ benef
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <div className="w-full h-full bg-[#2c2b5e]/10 flex items-center justify-center text-gray-400">
+                  <div className="w-full h-full bg-ink/10 flex items-center justify-center text-gray-400">
                     Sin imagen disponible
                   </div>
                 )}
                 {/* Icono de Categoría flotante */}
-                <div className="absolute top-0 right-8 bg-[#6f2c91] p-3 rounded-b-xl shadow-md">
+                <div className="absolute top-0 right-8 bg-cat-purple p-3 rounded-b-xl shadow-md">
                   {React.createElement(categoryIcon, { className: "w-6 h-6 text-white" })}
                 </div>
               </div>
@@ -131,11 +131,11 @@ const BeneficioDetailTemplate: React.FC<BeneficioDetailTemplateProps> = ({ benef
               {/* Cabecera del beneficio: Logos y Título */}
               <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-gray-100 pb-6 mb-6 gap-6">
                 <div className="flex items-center gap-6">
-                  <h1 className="text-2xl font-bold text-[#03091e] uppercase">{benefit.alliedName}</h1>
+                  <h1 className="text-2xl font-bold text-ink uppercase">{benefit.alliedName}</h1>
                   <div className="h-12 border-l border-gray-300"></div>
                   <div className="flex flex-col">
-                    <span className="text-xl font-bold text-teal-400">{benefit.title}</span>
-                    <span className="text-xs text-teal-500 font-bold uppercase tracking-wide leading-tight">
+                    <span className="font-barlow text-xl font-semibold text-ink">{benefit.title}</span>
+                    <span className="text-xs font-bold uppercase tracking-wide leading-tight text-accent">
                       {benefit.discount}
                     </span>
                   </div>
@@ -152,8 +152,8 @@ const BeneficioDetailTemplate: React.FC<BeneficioDetailTemplateProps> = ({ benef
                 </div>
                 <div className="flex flex-col text-xs font-semibold">
                   <span className="text-gray-400">APLICA PARA SOCIOS:</span>
-                  <span className="text-[#03091e] flex items-center gap-1 mt-0.5">
-                    <ShieldCheck className="w-4 h-4 text-teal-500" /> {segmentLabel}
+                  <span className="text-ink flex items-center gap-1 mt-0.5">
+                    <ShieldCheck className="w-4 h-4 text-primary" /> {segmentLabel}
                   </span>
                 </div>
               </div>
@@ -181,7 +181,7 @@ const BeneficioDetailTemplate: React.FC<BeneficioDetailTemplateProps> = ({ benef
                     <div className="flex items-start gap-3">
                       <Calendar className="w-5 h-5 text-gray-400 mt-0.5" />
                       <div>
-                        <span className="block text-sm font-bold text-[#03091e]">Vigencia del descuento</span>
+                        <span className="block text-sm font-bold text-ink">Vigencia del descuento</span>
                         <span className="text-xs text-gray-500">
                           Válido {benefit.validFrom ? `del ${formattedDate(benefit.validFrom)}` : ''} {benefit.validTo ? `al ${formattedDate(benefit.validTo)}` : ''}
                         </span>
@@ -192,7 +192,7 @@ const BeneficioDetailTemplate: React.FC<BeneficioDetailTemplateProps> = ({ benef
                     <div className="flex items-start gap-3">
                       <ShoppingBag className="w-5 h-5 text-gray-400 mt-0.5" />
                       <div>
-                        <span className="block text-sm font-bold text-[#03091e]">Modalidad de la compra</span>
+                        <span className="block text-sm font-bold text-ink">Modalidad de la compra</span>
                         <span className="text-xs text-gray-500">{benefit.modality}</span>
                       </div>
                     </div>
@@ -201,10 +201,10 @@ const BeneficioDetailTemplate: React.FC<BeneficioDetailTemplateProps> = ({ benef
 
                 {benefit.days && (
                   <div className="flex flex-col">
-                    <span className="block text-sm font-bold text-[#03091e] mb-2">Días que aplica</span>
+                    <span className="block text-sm font-bold text-ink mb-2">Días que aplica</span>
                     <div className="flex flex-wrap gap-2">
                       {String(benefit.days).split(',').map((dia, i) => (
-                        <div key={i} className="px-2.5 py-1 rounded-full bg-red-500 text-white flex items-center justify-center text-[10px] font-bold uppercase">
+                        <div key={i} className="px-2.5 py-1 rounded-full bg-danger text-white flex items-center justify-center text-[10px] font-bold uppercase">
                           {dia.trim()}
                         </div>
                       ))}
@@ -220,22 +220,22 @@ const BeneficioDetailTemplate: React.FC<BeneficioDetailTemplateProps> = ({ benef
                     href={benefit.siteUrl} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 w-max px-6 py-2 bg-teal-600 text-white text-sm font-bold rounded-full hover:bg-teal-700 transition shadow-sm"
+                    className="inline-flex items-center gap-2 w-max px-6 py-2 border border-danger text-danger text-sm font-bold rounded-full hover:bg-danger/5 transition"
                   >
                     <Globe className="w-4 h-4" /> Ir al sitio web aliado
                   </a>
                 )}
               </div>
 
-              <div className="flex items-center gap-3 text-sm font-bold text-[#03091e]">
+              <div className="flex items-center gap-3 text-sm font-bold text-ink">
                 Comparte este beneficio 
-                <Share2 className="w-4 h-4 cursor-pointer hover:text-red-500 transition-colors" onClick={handleShare} />
+                <Share2 className="w-4 h-4 cursor-pointer hover:text-danger transition-colors" onClick={handleShare} />
               </div>
 
               {/* Términos y condiciones detallados */}
               {benefit.terms && (
                 <div className="mt-8 border-t border-gray-100 pt-6">
-                  <h3 className="text-sm font-bold text-[#03091e] mb-2">Términos y condiciones</h3>
+                  <h3 className="text-sm font-bold text-ink mb-2">Términos y condiciones</h3>
                   <div 
                     className="text-xs text-gray-500 leading-relaxed text-justify space-y-1.5"
                     dangerouslySetInnerHTML={{ __html: benefit.terms }}
@@ -256,9 +256,9 @@ const BeneficioDetailTemplate: React.FC<BeneficioDetailTemplateProps> = ({ benef
             {/* Título de sección superpuesto con icono */}
             <div className="flex flex-col items-center -translate-y-6">
               <div className="w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center mb-2">
-                <MapPin className="w-6 h-6 text-red-500" />
+                <MapPin className="w-6 h-6 text-danger" />
               </div>
-              <h2 className="text-lg font-bold text-[#03091e] uppercase tracking-wide">
+              <h2 className="text-lg font-bold text-ink uppercase tracking-wide">
                 LOCALIZA TU SEDE
               </h2>
             </div>
@@ -274,11 +274,11 @@ const BeneficioDetailTemplate: React.FC<BeneficioDetailTemplateProps> = ({ benef
 
                     return (
                       <div key={key} className="bg-white border border-gray-100 rounded-2xl p-4 shadow-sm">
-                        <div className="flex items-center justify-between font-bold text-sm text-[#03091e] border-b border-gray-50 pb-2 mb-2">
+                        <div className="flex items-center justify-between font-bold text-sm text-ink border-b border-gray-50 pb-2 mb-2">
                           <span className="flex items-center gap-1.5 uppercase">
-                            <MapPin className="w-4 h-4 text-red-500" /> {cityHead.city}
+                            <MapPin className="w-4 h-4 text-danger" /> {cityHead.city}
                           </span>
-                          <span className="text-[10px] bg-red-50 text-red-600 px-2 py-0.5 rounded-full font-bold">
+                          <span className="text-[10px] bg-danger/10 text-danger px-2 py-0.5 rounded-full font-bold">
                             {cityHead.info.length} sedes
                           </span>
                         </div>

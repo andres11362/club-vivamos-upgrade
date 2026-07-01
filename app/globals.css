@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Turbopack a veces no detecta utilidades nuevas dentro de .tsx (p.ej. grid-cols-5
+   construida en una expresión ternaria). Forzamos su generación explícitamente. */
+@source inline("lg:grid-cols-5");
+
 /* ============================================================================
    CLUB VIVAMOS · Tokens de diseño (Tailwind v4, CSS-first)
    Fuente de verdad: migrado desde club-vivamos/src/scss/_colors.scss

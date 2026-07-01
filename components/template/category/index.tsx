@@ -3,6 +3,7 @@
 import React from 'react';
 import Carousel from '@/components/molecules/carousel';
 import CategoryCard from '@/components/molecules/cards/CategoryCard';
+import BenefitListItem from '@/components/molecules/cards/BenefitListItem';
 import Breadcrumb from '@/components/molecules/breadcrumb';
 import { useBenefits } from '@/context/BenefitsContext';
 import { getCategory } from '@/utils/JSONObjects';
@@ -28,10 +29,27 @@ const getAbsoluteUrl = (path: string | undefined) => {
 
 const CategoryTemplate: React.FC<CategoryTemplateProps> = ({ category }) => {
   const { state, getSearchResult, getFeatured, clearSearchResult, clearFeatured } = useBenefits();
-  const { searchResult, totalCount, loading } = state;
-  
+  const { searchResult, featured, totalCount, loading } = state;
+  const [viewMode, setViewMode] = React.useState<'grid' | 'list'>('grid');
+
   const searchParams = useSearchParams();
   const keyword = searchParams.get('keyword') || undefined;
+
+  // Destacados de la categoría → slides del carousel (antes mostraba placeholders)
+  const carouselSlides = featured.map((item) => ({
+    id: item.benefitId ?? item.id ?? 0,
+    image: getAbsoluteUrl(item.imageBenefit?.original || item.imageBenefit?.medium),
+    imageMobile: getAbsoluteUrl(item.imageBenefit?.medium),
+    logo: getAbsoluteUrl(item.imageLogo?.original || item.imageLogo?.medium),
+    title: item.title || item.alliedName || '',
+    subtitle: item.discount || '',
+    legal: item.lead || '',
+    externalLink: item.externalLink || '',
+    titleseo: item.titleseo || '',
+    categoryId: item.categoryId || '',
+    segmentId: item.segmentId || '',
+    alliedName: item.alliedName || '',
+  }));
 
   const categoryMeta = getCategory(category);
   const categoryTitle = categoryMeta ? categoryMeta.title : 'Beneficios';
@@ -51,12 +69,12 @@ const CategoryTemplate: React.FC<CategoryTemplateProps> = ({ category }) => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-barlow bg-gray-50 relative">
+    <div className="min-h-screen flex flex-col font-barlow bg-white relative">
       
       {/* Loading indicator top banner */}
       {loading && searchResult.length === 0 && (
         <div className="absolute inset-0 bg-white/50 backdrop-blur-[1px] z-50 flex items-center justify-center pointer-events-none">
-          <div className="bg-[#0f092d] text-white px-5 py-2.5 rounded-full shadow-lg text-xs font-semibold animate-pulse">
+          <div className="bg-ink text-white px-5 py-2.5 rounded-full shadow-lg text-xs font-semibold animate-pulse">
             Buscando aliados...
           </div>
         </div>
@@ -64,9 +82,9 @@ const CategoryTemplate: React.FC<CategoryTemplateProps> = ({ category }) => {
 
       <main className="flex-grow">
 
-        {/* Banner/Carrusel Superior */}
+        {/* Banner/Carrusel Superior — destacados reales de la categoría */}
         <section className="w-full">
-          <Carousel />
+          <Carousel slides={carouselSlides} />
         </section>
 
         <section className='max-w-7xl mx-auto'>
@@ -75,37 +93,78 @@ const CategoryTemplate: React.FC<CategoryTemplateProps> = ({ category }) => {
 
         {/* Título y Filtros de la Sección */}
         <section className="max-w-7xl mx-auto px-4 pt-12 pb-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <h1 className="text-2xl md:text-3xl font-bold text-[#03091e]">
+          <h1 className="font-maven text-[20px] text-ink">
             {totalCount > 0 ? `${totalCount} aliados en ${categoryTitle}` : `Aliados en ${categoryTitle}`}
           </h1>
-          <div className="text-sm font-semibold text-red-600 bg-red-50 px-4 py-2 rounded cursor-pointer">
-            Ordenar por Relevancia ▼
+          <div className="flex items-center gap-4">
+            {/* Toggle grilla / lista (sprite-view-options.svg, como producción) */}
+            <div className="flex">
+              <button
+                type="button"
+                onClick={() => setViewMode('grid')}
+                aria-label="Vista en grilla"
+                className={`flex h-[35px] w-[35px] items-center justify-center rounded-l-[3px] border border-r-0 ${viewMode === 'grid' ? 'border-primary' : 'border-[#bcbcbc]'}`}
+              >
+                <span
+                  aria-hidden
+                  className="block h-5 w-5 bg-no-repeat"
+                  style={{ backgroundImage: 'url(/images/sprite-view-options.svg)', backgroundPosition: viewMode === 'grid' ? '-4px -3px' : '-4px -35px' }}
+                />
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode('list')}
+                aria-label="Vista en lista"
+                className={`flex h-[35px] w-[35px] items-center justify-center rounded-r-[3px] border border-l-0 ${viewMode === 'list' ? 'border-primary' : 'border-[#bcbcbc]'}`}
+              >
+                <span
+                  aria-hidden
+                  className="block h-5 w-5 bg-no-repeat"
+                  style={{ backgroundImage: 'url(/images/sprite-view-options.svg)', backgroundPosition: viewMode === 'list' ? '-36px -35px' : '-36px -2px' }}
+                />
+              </button>
+            </div>
+            <div className="cursor-pointer rounded border border-gray-line px-4 py-2 font-maven text-[14px] text-primary">
+              Ordenar por Relevancia ▼
+            </div>
           </div>
         </section>
 
         {/* Grilla Principal de Tarjetas */}
         <section className="max-w-7xl mx-auto px-4 pb-16">
           {searchResult.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
+            <div
+              className={
+                viewMode === 'grid'
+                  ? 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5'
+                  : 'mx-auto flex max-w-5xl flex-col gap-5'
+              }
+            >
               {searchResult.map((item, index) => {
                 const imageSrc = getAbsoluteUrl(item.imageBenefit?.medium || item.imageBenefit?.original);
                 const logoSrc = getAbsoluteUrl(item.imageLogo?.medium || item.imageLogo?.original);
                 const itemKey = item.benefitId || item.id || `benefit-${index}`;
-                
-                // Construct URL variables safely
                 const titleseo = item.titleseo || 'detalle';
                 const benefitId = item.benefitId || item.id;
                 const detailUrl = `/${category}/${titleseo}/${benefitId}`;
 
                 return (
-                  <Link key={itemKey} href={detailUrl} className="col-span-1 block">
-                    <CategoryCard
-                      imageSrc={imageSrc}
-                      logoSrc={logoSrc}
-                      brand={item.alliedName || ''}
-                      discount={item.discount || ''}
-                      category={categoryTitle}
-                    />
+                  <Link key={itemKey} href={detailUrl} className="block">
+                    {viewMode === 'grid' ? (
+                      <CategoryCard
+                        imageSrc={imageSrc}
+                        logoSrc={logoSrc}
+                        brand={item.alliedName || ''}
+                        discount={item.discount || ''}
+                        category={categoryTitle}
+                      />
+                    ) : (
+                      <BenefitListItem
+                        logoSrc={logoSrc}
+                        brand={item.alliedName || ''}
+                        discount={item.discount || ''}
+                      />
+                    )}
                   </Link>
                 );
               })}
@@ -125,7 +184,7 @@ const CategoryTemplate: React.FC<CategoryTemplateProps> = ({ category }) => {
               <button
                 onClick={handleLoadMore}
                 disabled={loading}
-                className="bg-white border-2 border-red-600 text-red-600 font-bold py-3 px-8 rounded-full hover:bg-red-50 transition-colors disabled:opacity-50"
+                className="bg-white border border-danger text-danger font-maven font-medium py-3 px-8 rounded-full hover:bg-danger/5 transition-colors disabled:opacity-50"
               >
                 {loading ? "Cargando..." : "Cargar más aliados"}
               </button>
